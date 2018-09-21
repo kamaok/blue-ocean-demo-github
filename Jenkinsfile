@@ -1,11 +1,5 @@
 pipeline {
   agent any
-  
-   options {
-    buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '3')
-    disableConcurrentBuilds()
-  }
-  
   stages {
     stage('Checkout') {
       steps {
@@ -28,5 +22,9 @@ pipeline {
   }
   tools {
     maven 'maven-demo'
+  }
+  options {
+    buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '3'))
+    disableConcurrentBuilds()
   }
 }
