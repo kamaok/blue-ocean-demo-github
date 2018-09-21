@@ -1,10 +1,5 @@
 pipeline {
   agent any
-  
-   tools {
-    maven 'maven-demo'
-   }
-  
   stages {
     stage('Checkout') {
       steps {
@@ -13,7 +8,7 @@ pipeline {
     }
     stage('Build') {
       steps {
-        sh 'mvn clean compile test'
+        sh 'mvn clean compile test deploy'
       }
     }
     stage('Sonar analysis') {
@@ -24,5 +19,8 @@ pipeline {
 
       }
     }
+  }
+  tools {
+    maven 'maven-demo'
   }
 }
