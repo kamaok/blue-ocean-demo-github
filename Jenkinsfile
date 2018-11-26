@@ -4,6 +4,12 @@ pipeline {
   tools {
     maven 'maven-demo'
    }
+  
+   options {
+    buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '3'))
+    disableConcurrentBuilds()
+  }
+
 
   stages {
 
@@ -14,9 +20,10 @@ pipeline {
       }
     stage ('Build') {
       steps {
-        sh 'mvn clean compile test'
-        }
+        sh 'mvn clean compile test deploy'
       }
+    }
+
     stage ('Sonar analysis') {
       steps {
           withSonarQubeEnv('my-sonarqube-demo') {
